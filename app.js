@@ -1,10 +1,12 @@
 var express=require('express');
+var mongoose=require('path')
 var port =process.env.PORT || 3000
 var path=require('path')
 var app=express();
 var serveStatic=require('serve-static')
 var bodyParser=require('body-parser')
 
+mongoose.connect('mongodb://localhost/moviesite')
 app.set('views','./views/pages')
 app.set('view engine','jade')
 app.use(serveStatic('bower_components'))
@@ -15,6 +17,7 @@ console.log("moviesite started on port" + port);
 
 //index page
 app.get('/',function (req,res) {
+	Movie.
 	res.render('index.jade',{
 		title:'moviesite首页',
 		movies: [{
