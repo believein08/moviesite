@@ -1,4 +1,4 @@
-var mongoose= requeire('mongoose')
+var mongoose= require('mongoose')
 
 var MovieSchema =new mongoose.Schema({
 	doctor:String,
@@ -27,7 +27,7 @@ MovieSchema.pre('save',function(next){
 		this.meta.creatAT=this.meta.updateAt=Date.now()
 
 	}else{
-		thie.meta.updateAt=Date.now();
+		this.meta.updateAt=Date.now();
 	}
 
 	next();
@@ -47,3 +47,8 @@ MovieSchema.statics={
 		.exec(cb)
 	}
 }
+module.exports=MovieSchema
+
+
+
+
