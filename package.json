@@ -1,0 +1,33 @@
+{
+  "name": "moviesite",
+  "version": "1.0.0",
+  "description": "sharkslove嗲应旺",
+  "main": "app.js",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "bower": "^1.7.9",
+    "express": "^4.14.0",
+    "jade": "^1.11.0",
+    "moment": "^2.14.1",
+    "mongoose": "^4.5.3",
+    "serve-static": "^1.11.1",
+    "underscore": "^1.8.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/believein08/moviesite.git"
+  },
+  "keywords": [
+    "sharkslove"
+  ],
+  "author": "believein08",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/believein08/moviesite/issues"
+  },
+  "homepage": "https://github.com/believein08/moviesite#readme"
+}

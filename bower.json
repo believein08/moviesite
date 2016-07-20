@@ -1,0 +1,25 @@
+{
+  "name": "sharkslovemovie",
+  "homepage": "https://github.com/believein08/moviesite",
+  "description": "sharkslove电影网站",
+  "main": "",
+  "keywords": [
+    "sharkslove"
+  ],
+  "authors": [
+    "zhangyu"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/libs",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.6"
+  }
+}
