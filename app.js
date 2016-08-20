@@ -7,6 +7,7 @@ var serveStatic=require('serve-static')
 var bodyParser=require('body-parser')
 var Movie=require('./models/movie')
 var _=require('underscore')
+var User=require("./models/user");
 
 mongoose.connect('mongodb://localhost/moviesite')
 app.set('views','./views/pages')
@@ -31,6 +32,38 @@ app.get('/',function (req,res) {
 	})
 	
 });
+
+//
+app.post('/user/signup',function(req,res){
+	_user=req.body.user;
+	var user=new User(_user);
+	user.save(function(err,user){
+		if(err){
+			console.log(err);
+		}
+
+	})
+	res.end();
+
+	console.log(user);
+})
+//list page
+app.get('/user/list',function (req,res) {
+	User.fetch(function(err,users){
+		if(err){
+			console.log(err)
+		}
+		console.log("users="+users);
+		res.render('userList',{
+
+			title:'moviesite列表页',
+			users:users 
+		})
+	})
+
+	
+});
+
 //detail page
 app.get('/movie/:id',function (req,res) {
 	var id = req.params.id;
@@ -132,6 +165,10 @@ app.get('/admin/list',function (req,res) {
 			movies:movies 
 		})
 	})
+
+	
+});
+
 //list delete movie
 app.delete('/admin/list',function(req,res){
 	var id=req.query.id;
@@ -147,5 +184,4 @@ app.delete('/admin/list',function(req,res){
 		})
 	}
 })
-	
-});
+
