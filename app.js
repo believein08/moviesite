@@ -8,44 +8,93 @@ var bodyParser=require('body-parser')
 var Movie=require('./models/movie')
 var _=require('underscore')
 var User=require("./models/user");
-
-mongoose.connect('mongodb://localhost/moviesite')
+var session = require('express-session');
+var MongoStore=require('connect-mongo')(session);
+var dburl='mongodb://localhost/moviesite';
+mongoose.connect(dburl);
 app.set('views','./views/pages')
 app.set('view engine','jade')
 app.use(serveStatic('public'))
 app.use(bodyParser.urlencoded({extended:true}))
 app.listen(port)
 app.locals.moment=require('moment')//存疑，这句话用来干什么？
+app.use(session({
+	secret:'sharkslove',
+	store:new MongoStore({
+		url:dburl,
+		collection:'sessions'
 
+	})
+}))
 console.log("moviesite started on port" + port);
 
 //index page
 app.get('/',function (req,res) {
+	console.log(req.session.user);
+	var _user=req.session.user;
+	app.locals.user=_user;
 	Movie.fetch(function(err,movies){
 		if(err){
 			console.log(err)
 		}
 		res.render('index.jade',{
 			title:'moviesite首页',
-			movies: movies
+			movies: movies			
 		})
-	})
-	
+	})	
 });
 
-//
+//signup
 app.post('/user/signup',function(req,res){
-	_user=req.body.user;
-	var user=new User(_user);
-	user.save(function(err,user){
+	var _user=req.body.user;
+	
+	User.findOne({name:_user.name},function(err,user){
 		if(err){
 			console.log(err);
 		}
-
+		if(user){
+			 res.redirect('/');
+		}else{
+			var user=new User(_user);
+			user.save(function(err,user){
+				if(err){
+					console.log(err);
+				}
+				res.redirect('/user/list');
+			})
+		}
+	});
+	
+})
+//signin
+app.post('/user/signin',function(req,res){
+	var _user=req.body.user;
+	var name=_user.name;
+	var password=_user.password;
+	User.findOne({name:name},function(err,user){
+		if(err){
+			console.log(err);
+		}
+		if(!user){
+			return res.redirect('/')
+		}
+		user.comparePassword(password,function(err,isMatch){
+			if(err)
+				console.log(err);
+			if(isMatch){
+				req.session.user=user;
+				res.redirect('/')
+			}else{
+				console.log('Password is not right');
+			}
+		})
 	})
-	res.end();
-
-	console.log(user);
+})
+//signout
+app.get('/logout',function(req,res){
+	delete req.session.user;
+	delete app.locals.user;
+	res.redirect("/");
 })
 //list page
 app.get('/user/list',function (req,res) {
@@ -59,9 +108,7 @@ app.get('/user/list',function (req,res) {
 			title:'moviesite列表页',
 			users:users 
 		})
-	})
-
-	
+	})	
 });
 
 //detail page
