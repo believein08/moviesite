@@ -1,2 +1,3 @@
 # moviesite
-使用nodejs和mogodb新建一个网站项目
+使用nodejs和mogodb完成一个电影网站项目
+主要是为了看电影的时候远离弹出广告的骚扰
