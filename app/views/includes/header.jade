@@ -2,11 +2,40 @@
 	.row
 		.page-header
 			h1=title
-			small 重度科幻迷
+
+			.navbar.navbar-default
+			
+				.collapse.navbar-collapse
+					ul.nav.navbar-nav
+						li
+							a(href="/") 首页
+						if user
+							if(user.role>10)
+								li.dropdown
+									a.dropdown-toggle(data-toggle="dropdown") 电影
+										span.caret
+									ul.dropdown-menu
+										li
+											a(href="/admin/movie") 电影上传
+										li
+											a(href="/admin/movie/list") 电影列表
+								li.dropdown
+									a.dropdown-toggle(data-toggle="dropdown") 分类
+										span.caret
+									ul.dropdown-menu
+										li
+											a(href="/admin/category/list") 分类列表
+								li.dropdown
+									a.dropdown-toggle(data-toggle="dropdown") 用户
+										span.caret
+									ul.dropdown-menu
+										li
+											a(href="/user/list") 用户列表
+
 .navbar.navbar-default.navbar-fixed-bottom
 	.container
 		.navbar-header
-			a.navbar-brand(href="/") 重度科幻迷
+			a.navbar-brand(href="/") sharkslove
 		if user
 			p.navbar-text.navbar-right
 				span 欢迎您,#{user.name}

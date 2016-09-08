@@ -20,7 +20,7 @@ exports.detail=function (req,res) {
 exports.movie=function (req,res) {
 	Category.find({},function(err,categories){
 		res.render('admin',{
-		title:'moviesite后台录入页',
+		title:'电影后台录入页',
 		categories:categories,
 		movie: {}
 	})
@@ -116,7 +116,7 @@ exports.list=function (req,res) {
 		}
 		res.render('list',{
 
-			title:'moviesite列表页',
+			title:'电影列表页',
 			movies:movies 
 		})
 	})

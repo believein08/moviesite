@@ -8,7 +8,7 @@ exports.index=function (req,res) {
 			console.log(err)
 		}
 		res.render('index.jade',{
-			title:'moviesite首页',
+			title:'sharksLove电影网',
 			catetories: catetories			
 		});
 	})

@@ -19,7 +19,10 @@ var UserSchema=new mongoose.Schema({
 	//2:professional
 	//>10:admin
 	//>50:super admin
-	role:Number,
+	role:{
+		type:Number,
+		default:5
+	},
 	meta:{
 		createAT:{
 			type:Date,

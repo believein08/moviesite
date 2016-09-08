@@ -29,3 +29,17 @@ exports.list=function (req,res) {
 		})
 	})	
 }
+exports.del=function(req,res){
+	var id=req.query.id;
+	console.log(id);
+	if(id){
+		Category.remove({_id: id},function(err,movie){
+			if(err){
+				console.log(err);
+			}
+			else{
+				res.json({success: 1})
+			}
+		})
+	}
+}

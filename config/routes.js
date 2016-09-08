@@ -5,11 +5,8 @@ var Category=require("../app/controllers/category");
 console.log(Index);
 module.exports=function(app){
 	app.use(function(req,res,next){
-	var _user=req.session.user;
-	
+	var _user=req.session.user;	
 	app.locals.user=_user;
-		
-	
 	next();
 	
 })
@@ -27,17 +24,18 @@ app.get('/user/list',User.signinRequired,User.adminRequired,User.list);
 
 //movie
 app.get('/movie/:id',Movie.detail);
-app.get('/admin/movie',User.adminRequired,Movie.movie);
-app.get('/admin/movie/update/:id',User.adminRequired,Movie.update);
-app.post('/admin/movie/new',User.adminRequired,Movie.post);
-app.get('/admin/movie/list',User.adminRequired,Movie.list);
-app.delete('/admin/movie/list',User.adminRequired,Movie.del);
+app.get('/admin/movie',User.signinRequired,User.adminRequired,Movie.movie);
+app.get('/admin/movie/update/:id',User.signinRequired,User.adminRequired,Movie.update);
+app.post('/admin/movie/new',User.signinRequired,User.adminRequired,Movie.post);
+app.get('/admin/movie/list',User.signinRequired,User.adminRequired,Movie.list);
+app.delete('/admin/movie/list',User.signinRequired,User.adminRequired,Movie.del);
 
 //category
 app.get('/admin/category/new',User.signinRequired,User.adminRequired,Category.new);
 app.post('/admin/category/save',User.signinRequired,User.adminRequired,Category.save);
 app.get('/admin/category/list',User.signinRequired,User.adminRequired,Category.list);
+app.delete('/admin/category/list',User.signinRequired,User.adminRequired,Category.del);
 
-// results
-app.get('/results', Index.search)
+
+
 }
